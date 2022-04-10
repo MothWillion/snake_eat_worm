@@ -1,7 +1,8 @@
 <template>
 	<view class="content">
 		<view class="game-field">
-			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(x, i)}deg)`" v-for="(x, i) in blocks" :key="i">
+			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(x, i)}deg)`"
+				v-for="(x, i) in blocks" :key="i">
 			</view>
 		</view>
 		<view class="action-field">
@@ -29,7 +30,7 @@
 				snakes: [0, 1, 2, 3],
 				direction: "right",
 				timer: null,
-                speed: 1
+				speed: 1
 			};
 		},
 		onLoad() {
@@ -40,7 +41,7 @@
 				this.blocks = new Array(100).fill(0);
 				this.worms = [6, 29, 82];
 				this.snakes = [0, 1, 2, 3];
-				this.direction = this.direction || "right";
+				this.direction = "right";
 				this.timer = null;
 				this.paint();
 			},
@@ -88,9 +89,9 @@
 				}
 				return bg;
 			},
-            calcRotate(type, index) {
-                let rotate = 0;
-                switch (type) {
+			calcRotate(type, index) {
+				let rotate = 0;
+				switch (type) {
 					case 0: // 地板
 						rotate = 0;
 						break;
@@ -98,54 +99,54 @@
 						rotate = 0;
 						break;
 					case 2: // 蛇
-                        let length = this.snakes.length;
+						let length = this.snakes.length;
 						let head = this.snakes[length - 1];
 						let tail = this.snakes[0];
-                        let tailPre = this.snakes[1];
-                        let bodyPre = this.snakes[this.snakes.indexOf(index) + 1];
+						let tailPre = this.snakes[1];
+						let bodyPre = this.snakes[this.snakes.indexOf(index) + 1];
 						if (index === head) {
-							if(this.direction === 'right') {
-                                rotate = 90;
-                            } else if(this.direction === 'down') {
-                                rotate = 180;
-                            } else if (this.direction === 'left') {
-                                rotate = 270;
-                            } else {
-                                rotate = 0;
-                            }
+							if (this.direction === 'right') {
+								rotate = 90;
+							} else if (this.direction === 'down') {
+								rotate = 180;
+							} else if (this.direction === 'left') {
+								rotate = 270;
+							} else {
+								rotate = 0;
+							}
 						} else if (index === tail) {
-                            if(tailPre - 1 === tail) {
-                                // 向右走的
-                                rotate = 90;
-                            } else if(tailPre - 10 === tail) {
-                                // 向下走的
-                                rotate = 180;
-                            } else if(tailPre + 1 === tail) {
-                                // 向左走的
-                                rotate = 270;
-                            } else {
-                                // 向上走的
-                                rotate = 0;
-                            }
+							if (tailPre - 1 === tail) {
+								// 向右走的
+								rotate = 90;
+							} else if (tailPre - 10 === tail) {
+								// 向下走的
+								rotate = 180;
+							} else if (tailPre + 1 === tail) {
+								// 向左走的
+								rotate = 270;
+							} else {
+								// 向上走的
+								rotate = 0;
+							}
 						} else {
-							if(bodyPre - 1 === index) {
-                                // 向右走的
-                                rotate = 90;
-                            } else if(bodyPre - 10 === index) {
-                                // 向下走的
-                                rotate = 180;
-                            } else if(bodyPre + 1 === index) {
-                                // 向左走的
-                                rotate = 270;
-                            } else {
-                                // 向上走的
-                                rotate = 0;
-                            }
+							if (bodyPre - 1 === index) {
+								// 向右走的
+								rotate = 90;
+							} else if (bodyPre - 10 === index) {
+								// 向下走的
+								rotate = 180;
+							} else if (bodyPre + 1 === index) {
+								// 向左走的
+								rotate = 270;
+							} else {
+								// 向上走的
+								rotate = 0;
+							}
 						}
 						break;
 				}
-                return rotate;
-            },
+				return rotate;
+			},
 			toWards(direction) {
 				if (this.worms.length === 0) {
 					alert("你赢了！");
@@ -190,19 +191,27 @@
 				}
 			},
 			bindUp() {
+				if (this.direction === 'down') return;
 				this.direction = "up";
 			},
 			bindDown() {
+				if (this.direction === 'up') return;
 				this.direction = "down";
 			},
 			bindLeft() {
+				if (this.direction === 'right') return;
 				this.direction = "left";
 			},
 			bindRight() {
+				if (this.direction === 'left') return;
 				this.direction = "right";
 			},
 			checkGame(direction, next) {
 				let gameover = false;
+                let isSnake = this.snakes.indexOf(next) > -1;
+                if(isSnake) {
+                    gameover = true;
+                }
 				switch (direction) {
 					case "up":
 						if (next < 0) {
