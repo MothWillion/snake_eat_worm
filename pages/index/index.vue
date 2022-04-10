@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="game-field">
-			<view class="block" :style="`background-color: ${bgColor(x)};`" v-for="(x, i) in blocks" :key="i">{{x}}
+			<view class="block" :class="x === 2 ? computedWorm(i) : '' " :style="`background: ${bgColor(x)};transform: ${computedRotate(x)}`" v-for="(x, i) in blocks" :key="i">
 			</view>
 		</view>
 		<view class="action-field">
@@ -16,8 +16,10 @@
 		<button block v-show="timer" @click="reStart">重新开始</button>
 	</view>
 </template>
-
 <script>
+	import plotImg from '../../static/images/地块.png';
+	import wormImg from '../../static/images/虫子_idle_1.png';
+	import wormBodyImg from '../../static/images/蛇身.png';
 	export default {
 		data() {
 			return {
@@ -25,18 +27,25 @@
 				worms: [6, 29, 82],
 				snakes: [0, 1, 2, 3],
 				direction: 'right',
-				timer: null
+				timer: null,
+				rotate:90
 			}
 		},
 		onLoad() {
 			this.initGame();
 		},
 		methods: {
+			computedRotate(index) {
+				console.log(index)
+				if(index === 2) {
+					return `rotate(${this.rotate}deg)`
+				}
+			},
 			initGame() {
 				this.blocks = new Array(100).fill(0);
 				this.worms = [6, 29, 82];
-				this.snakes = [0, 1, 2, 3];
-				this.direction = 'right';
+				this.snakes = [0, 1,2,3];
+				this.direction = this.direction || 'right';
 				this.timer = null;
 				this.paint();
 			},
@@ -44,6 +53,40 @@
 				this.timer = setInterval(() => {
 					this.toWards(this.direction);
 				}, 1000)
+			},
+			computedWorm(index) {
+				// console.log(index,this.snakes,this.snakes[this.snakes.length - 1])
+				if(this.direction === 'left') {
+					// if(this.snakes[this.snakes.length - 1] >= Math.min(...this.snakes)) {
+					// 	switch (index){
+					// 		case Math.max(...this.snakes):
+					// 			return 'wormTail'
+					// 			break;
+					// 		case Math.min(...this.snakes):
+					// 			return 'wormHead'
+					// 			break;
+					// 	}
+					// } else {
+					// }
+					switch (index){
+						case Math.max(...this.snakes):
+							return 'wormHead'
+							break;
+						case Math.min(...this.snakes):
+							return 'wormTail'
+							break;
+					}
+				} else {
+					switch (index){
+						case Math.min(...this.snakes):
+							return 'wormTail'
+							break;
+						case Math.max(...this.snakes):
+							return 'wormHead'
+							break;
+					}
+				}
+				
 			},
 			reStart() {
 				if (this.timer) {
@@ -64,14 +107,14 @@
 			bgColor(type) {
 				let bgcolor = ''
 				switch (type) {
-					case 0:
-						bgcolor = '#fff'
+					case 0: // 地板
+						bgcolor = `url(${plotImg})`
 						break;
-					case 1:
-						bgcolor = '#ff0000';
+					case 1: // 虫子
+						bgcolor = `url(${wormImg})`
 						break;
-					case 2:
-						bgcolor = '#00ff7f'
+					case 2: // 蛇
+						bgcolor = `url(${wormBodyImg})`
 						break;
 				}
 				return bgcolor;
@@ -120,16 +163,24 @@
 				}
 			},
 			bindUp() {
-				this.direction = 'up';
+				if(this.direction === 'down') return;
+				this.timer && (this.direction = 'up');
+				this.rotate = 0;
 			},
 			bindDown() {
-				this.direction = 'down';
+				if(this.direction === 'up') return;
+				this.timer && (this.direction = 'down');
+				this.rotate = 180;
 			},
 			bindLeft() {
-				this.direction = 'left';
+				if(this.direction === 'right') return;
+				this.timer && (this.direction = 'left');
+				this.rotate = 270;
 			},
 			bindRight() {
-				this.direction = 'right';
+				if(this.direction === 'left') return;
+				this.timer && (this.direction = 'right');
+				this.rotate = 90;
 			},
 			checkGame(direction, next) {
 				let gameover = false;
@@ -180,8 +231,20 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background-position: center !important;
+		background-size: 100% !important;
+		outline: 1px solid;
 	}
-
+	.wormTail {
+		background: url('../../static/images/蛇尾.png') !important;
+		background-position: center !important;
+		background-size: 100% !important;
+	}
+	.wormHead{
+		background: url('../../static/images/蛇头.png') !important;
+		background-position: center !important;
+		background-size: 100% !important;
+	}
 	.flex {
 		display: flex;
 		width: 50%;
