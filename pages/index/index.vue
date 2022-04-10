@@ -1,8 +1,10 @@
 <template>
 	<view class="content">
 		<view class="game-field">
-			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(x, i)}deg)`"
-				v-for="(x, i) in blocks" :key="i">
+			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(
+          x,
+          i
+        )}deg)`" v-for="(x, i) in blocks" :key="i">
 			</view>
 		</view>
 		<view class="action-field">
@@ -13,8 +15,10 @@
 			</view>
 			<button @click="bindDown">下</button>
 		</view>
-		<button block v-show="!timer" @click="start">开始游戏</button>
-		<button block v-show="timer" @click="reStart">重新开始</button>
+		<view class="play">
+			<button block v-show="!timer" @click="start">开始游戏</button>
+			<button block v-show="timer" @click="reStart">重新开始</button>
+		</view>
 	</view>
 </template>
 <script>
@@ -26,11 +30,11 @@
 		data() {
 			return {
 				blocks: [],
-				worms: [6, 29, 82],
+				worms: [6],
 				snakes: [0, 1, 2, 3],
 				direction: "right",
 				timer: null,
-				speed: 1
+				speed: 2,
 			};
 		},
 		onLoad() {
@@ -39,7 +43,7 @@
 		methods: {
 			initGame() {
 				this.blocks = new Array(100).fill(0);
-				this.worms = [6, 29, 82];
+				this.worms = [6];
 				this.snakes = [0, 1, 2, 3];
 				this.direction = "right";
 				this.timer = null;
@@ -105,11 +109,11 @@
 						let tailPre = this.snakes[1];
 						let bodyPre = this.snakes[this.snakes.indexOf(index) + 1];
 						if (index === head) {
-							if (this.direction === 'right') {
+							if (this.direction === "right") {
 								rotate = 90;
-							} else if (this.direction === 'down') {
+							} else if (this.direction === "down") {
 								rotate = 180;
-							} else if (this.direction === 'left') {
+							} else if (this.direction === "left") {
 								rotate = 270;
 							} else {
 								rotate = 0;
@@ -148,7 +152,7 @@
 				return rotate;
 			},
 			toWards(direction) {
-				if (this.worms.length === 0) {
+				if (this.snakes.length === 100) {
 					alert("你赢了！");
 					clearInterval(this.timer);
 					return;
@@ -185,33 +189,44 @@
 					} else {
 						// 如果是虫子格
 						this.worms = this.worms.filter((x) => x !== next);
+						let nextWorm = this.createWorm();
+						this.worms.push(nextWorm);
 					}
 					this.blocks[tail] = 0;
 					this.paint();
 				}
 			},
+            // 生成下一只虫子
+			createWorm() {
+				let blocks = Array.from({
+					length: 100
+				}, (v, k) => k);
+				let restBlocks = blocks.filter(x => this.snakes.indexOf(x) < 0);
+				let worm = restBlocks[Math.floor(Math.random() * restBlocks.length)];
+				return worm;
+			},
 			bindUp() {
-				if (this.direction === 'down') return;
+				if (this.direction === "down") return;
 				this.direction = "up";
 			},
 			bindDown() {
-				if (this.direction === 'up') return;
+				if (this.direction === "up") return;
 				this.direction = "down";
 			},
 			bindLeft() {
-				if (this.direction === 'right') return;
+				if (this.direction === "right") return;
 				this.direction = "left";
 			},
 			bindRight() {
-				if (this.direction === 'left') return;
+				if (this.direction === "left") return;
 				this.direction = "right";
 			},
 			checkGame(direction, next) {
 				let gameover = false;
-                let isSnake = this.snakes.indexOf(next) > -1;
-                if(isSnake) {
-                    gameover = true;
-                }
+				let isSnake = this.snakes.indexOf(next) > -1;
+				if (isSnake) {
+					gameover = true;
+				}
 				switch (direction) {
 					case "up":
 						if (next < 0) {
@@ -242,10 +257,16 @@
 
 <style>
 	.content {
+		height: calc(100vh - 90upx);
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+	}
+
+	.play {
+		margin-bottom: 40upx;
 	}
 
 	.game-field {
