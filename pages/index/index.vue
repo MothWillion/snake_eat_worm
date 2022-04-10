@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="game-field">
-			<view class="block" :class="x === 2 ? computedWorm(i) : '' " :style="`background: ${bgColor(x)};transform: ${computedRotate(x)}`" v-for="(x, i) in blocks" :key="i">
+			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(x, i)}deg)`" v-for="(x, i) in blocks" :key="i">
 			</view>
 		</view>
 		<view class="action-field">
@@ -12,116 +12,143 @@
 			</view>
 			<button @click="bindDown">下</button>
 		</view>
-		<button block v-show="!timer" @click="go">开始游戏</button>
+		<button block v-show="!timer" @click="start">开始游戏</button>
 		<button block v-show="timer" @click="reStart">重新开始</button>
 	</view>
 </template>
 <script>
-	import plotImg from '../../static/images/地块.png';
-	import wormImg from '../../static/images/虫子_idle_1.png';
-	import wormBodyImg from '../../static/images/蛇身.png';
+	import worm from "../../static/images/worm.png";
+	import snakeBody from "../../static/images/snake_body.png";
+	import snakeHead from "../../static/images/snake_head.png";
+	import snakeTail from "../../static/images/snake_tail.png";
 	export default {
 		data() {
 			return {
 				blocks: [],
 				worms: [6, 29, 82],
 				snakes: [0, 1, 2, 3],
-				direction: 'right',
+				direction: "right",
 				timer: null,
-				rotate:90
-			}
+                speed: 1
+			};
 		},
 		onLoad() {
 			this.initGame();
 		},
 		methods: {
-			computedRotate(index) {
-				console.log(index)
-				if(index === 2) {
-					return `rotate(${this.rotate}deg)`
-				}
-			},
 			initGame() {
 				this.blocks = new Array(100).fill(0);
 				this.worms = [6, 29, 82];
-				this.snakes = [0, 1,2,3];
-				this.direction = this.direction || 'right';
+				this.snakes = [0, 1, 2, 3];
+				this.direction = this.direction || "right";
 				this.timer = null;
 				this.paint();
 			},
-			go() {
+			start() {
 				this.timer = setInterval(() => {
 					this.toWards(this.direction);
-				}, 1000)
-			},
-			computedWorm(index) {
-				// console.log(index,this.snakes,this.snakes[this.snakes.length - 1])
-				if(this.direction === 'left') {
-					// if(this.snakes[this.snakes.length - 1] >= Math.min(...this.snakes)) {
-					// 	switch (index){
-					// 		case Math.max(...this.snakes):
-					// 			return 'wormTail'
-					// 			break;
-					// 		case Math.min(...this.snakes):
-					// 			return 'wormHead'
-					// 			break;
-					// 	}
-					// } else {
-					// }
-					switch (index){
-						case Math.max(...this.snakes):
-							return 'wormHead'
-							break;
-						case Math.min(...this.snakes):
-							return 'wormTail'
-							break;
-					}
-				} else {
-					switch (index){
-						case Math.min(...this.snakes):
-							return 'wormTail'
-							break;
-						case Math.max(...this.snakes):
-							return 'wormHead'
-							break;
-					}
-				}
-				
+				}, 1000 / this.speed);
 			},
 			reStart() {
 				if (this.timer) {
 					clearInterval(this.timer);
 				}
 				this.initGame();
-				this.go();
+				this.start();
 			},
 			paint() {
-				this.worms.forEach(x => {
+				this.worms.forEach((x) => {
 					this.blocks[x] = 1;
 				});
-				this.snakes.forEach(x => {
+				this.snakes.forEach((x) => {
 					this.blocks[x] = 2;
 				});
 				this.$forceUpdate();
 			},
-			bgColor(type) {
-				let bgcolor = ''
+			bg(type, index) {
+				let bg = "";
 				switch (type) {
 					case 0: // 地板
-						bgcolor = `url(${plotImg})`
+						bg = "unset";
 						break;
 					case 1: // 虫子
-						bgcolor = `url(${wormImg})`
+						bg = `url(${worm})`;
 						break;
 					case 2: // 蛇
-						bgcolor = `url(${wormBodyImg})`
+						let head = this.snakes[this.snakes.length - 1];
+						let tail = this.snakes[0];
+						if (index === head) {
+							bg = `url(${snakeHead})`;
+						} else if (index === tail) {
+							bg = `url(${snakeTail})`;
+						} else {
+							bg = `url(${snakeBody})`;
+						}
 						break;
 				}
-				return bgcolor;
+				return bg;
 			},
+            calcRotate(type, index) {
+                let rotate = 0;
+                switch (type) {
+					case 0: // 地板
+						rotate = 0;
+						break;
+					case 1: // 虫子
+						rotate = 0;
+						break;
+					case 2: // 蛇
+                        let length = this.snakes.length;
+						let head = this.snakes[length - 1];
+						let tail = this.snakes[0];
+                        let tailPre = this.snakes[1];
+                        let bodyPre = this.snakes[this.snakes.indexOf(index) + 1];
+						if (index === head) {
+							if(this.direction === 'right') {
+                                rotate = 90;
+                            } else if(this.direction === 'down') {
+                                rotate = 180;
+                            } else if (this.direction === 'left') {
+                                rotate = 270;
+                            } else {
+                                rotate = 0;
+                            }
+						} else if (index === tail) {
+                            if(tailPre - 1 === tail) {
+                                // 向右走的
+                                rotate = 90;
+                            } else if(tailPre - 10 === tail) {
+                                // 向下走的
+                                rotate = 180;
+                            } else if(tailPre + 1 === tail) {
+                                // 向左走的
+                                rotate = 270;
+                            } else {
+                                // 向上走的
+                                rotate = 0;
+                            }
+						} else {
+							if(bodyPre - 1 === index) {
+                                // 向右走的
+                                rotate = 90;
+                            } else if(bodyPre - 10 === index) {
+                                // 向下走的
+                                rotate = 180;
+                            } else if(bodyPre + 1 === index) {
+                                // 向左走的
+                                rotate = 270;
+                            } else {
+                                // 向上走的
+                                rotate = 0;
+                            }
+						}
+						break;
+				}
+                return rotate;
+            },
 			toWards(direction) {
 				if (this.worms.length === 0) {
-					alert('你赢了！');
+					alert("你赢了！");
 					clearInterval(this.timer);
 					return;
 				}
@@ -129,22 +156,22 @@
 				let tail = this.snakes[0];
 				let next;
 				switch (direction) {
-					case 'up':
+					case "up":
 						next = head - 10;
 						break;
-					case 'down':
+					case "down":
 						next = head + 10;
 						break;
-					case 'left':
+					case "left":
 						next = head - 1;
 						break;
-					case 'right':
+					case "right":
 						next = head + 1;
 						break;
 				}
 				let gameover = this.checkGame(direction, next);
 				if (gameover) {
-					alert('游戏结束');
+					alert("游戏结束");
 					clearInterval(this.timer);
 				} else {
 					// 游戏没结束
@@ -156,60 +183,52 @@
 						this.snakes.shift();
 					} else {
 						// 如果是虫子格
-						this.worms = this.worms.filter(x => x !== next);
+						this.worms = this.worms.filter((x) => x !== next);
 					}
 					this.blocks[tail] = 0;
 					this.paint();
 				}
 			},
 			bindUp() {
-				if(this.direction === 'down') return;
-				this.timer && (this.direction = 'up');
-				this.rotate = 0;
+				this.direction = "up";
 			},
 			bindDown() {
-				if(this.direction === 'up') return;
-				this.timer && (this.direction = 'down');
-				this.rotate = 180;
+				this.direction = "down";
 			},
 			bindLeft() {
-				if(this.direction === 'right') return;
-				this.timer && (this.direction = 'left');
-				this.rotate = 270;
+				this.direction = "left";
 			},
 			bindRight() {
-				if(this.direction === 'left') return;
-				this.timer && (this.direction = 'right');
-				this.rotate = 90;
+				this.direction = "right";
 			},
 			checkGame(direction, next) {
 				let gameover = false;
 				switch (direction) {
-					case 'up':
+					case "up":
 						if (next < 0) {
 							gameover = true;
 						}
 						break;
-					case 'down':
+					case "down":
 						if (next >= 100) {
 							gameover = true;
 						}
 						break;
-					case 'left':
+					case "left":
 						if (next % 10 === 9) {
 							gameover = true;
 						}
 						break;
-					case 'right':
+					case "right":
 						if (next % 10 === 0) {
 							gameover = true;
 						}
 						break;
 				}
 				return gameover;
-			}
-		}
-	}
+			},
+		},
+	};
 </script>
 
 <style>
@@ -231,20 +250,14 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-position: center !important;
-		background-size: 100% !important;
-		outline: 1px solid;
+		background-color: rgb(232, 235, 178);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		outline: 2upx solid;
+		box-sizing: border-box;
 	}
-	.wormTail {
-		background: url('../../static/images/蛇尾.png') !important;
-		background-position: center !important;
-		background-size: 100% !important;
-	}
-	.wormHead{
-		background: url('../../static/images/蛇头.png') !important;
-		background-position: center !important;
-		background-size: 100% !important;
-	}
+
 	.flex {
 		display: flex;
 		width: 50%;
