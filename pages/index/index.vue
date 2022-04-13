@@ -31,7 +31,7 @@
 		data() {
 			return {
 				blocks: [],
-				worms: [6],
+				worms: [],
 				snakes: [0, 1, 2, 3],
 				direction: "right",
 				timer: null,
@@ -44,7 +44,7 @@
 		methods: {
 			initGame() {
 				this.blocks = new Array(100).fill(0);
-				this.worms = [6];
+				this.worms = [Math.floor(Math.random() * 96) + 4];
 				this.snakes = [0, 1, 2, 3];
 				this.direction = "right";
 				this.timer = null;
