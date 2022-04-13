@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		<view>蛇蛇目前：{{snakes.length}}米长</view>
 		<view class="game-field">
 			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(
           x,
