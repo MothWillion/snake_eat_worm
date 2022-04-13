@@ -16,9 +16,33 @@
 			</view>
 			<button @click="bindDown">下</button>
 		</view>
-		<view class="play">
-			<button block v-show="!timer" @click="start">开始游戏</button>
-			<button block v-show="timer" @click="reStart">重新开始</button>
+		<view v-show="!started || ended" class="game-board-wrap">
+			<view v-show="!started" class="game-board">
+				<view class="title">选择游戏难度</view>
+				<radio-group name="radio" @change="bindLevelChange">
+					<label class="label">
+						<radio value="1" checked /><text>简单模式</text>
+					</label>
+					<label class="label">
+						<radio value="2" /><text>正常模式</text>
+					</label>
+					<label class="label">
+						<radio value="3" /><text>困难模式</text>
+					</label>
+					<label class="label">
+						<radio value="4" /><text>地狱模式</text>
+					</label>
+				</radio-group>
+				<button type="primary" @click="start">开始游戏</button>
+			</view>
+			<view v-show="ended" class="settle-board">
+				<view class="title">游戏结束</view>
+				<view class="result">您的蛇蛇达到了{{snakes.length}}米</view>
+				<view class="btns">
+					<button type="primary" @click="reStart">再次挑战</button>
+					<button type="primary" plain @click="rePick">重选难度</button>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -35,7 +59,9 @@
 				snakes: [0, 1, 2, 3],
 				direction: "right",
 				timer: null,
-				speed: 2,
+				level: 1, // 游戏难度
+				started: false, // 游戏开始了
+				ended: false // 游戏结束了
 			};
 		},
 		onLoad() {
@@ -50,16 +76,26 @@
 				this.timer = null;
 				this.paint();
 			},
+			// 难度选择
+			bindLevelChange(e) {
+				this.level = e.detail.value;
+			},
+			rePick() {
+				this.started = false;
+				this.ended = false;
+			},
 			start() {
+				this.started = true;
+				this.initGame();
 				this.timer = setInterval(() => {
 					this.toWards(this.direction);
-				}, 1000 / this.speed);
+				}, 1000 / this.level);
 			},
 			reStart() {
+				this.ended = false;
 				if (this.timer) {
 					clearInterval(this.timer);
 				}
-				this.initGame();
 				this.start();
 			},
 			paint() {
@@ -177,7 +213,7 @@
 				}
 				let gameover = this.checkGame(direction, next);
 				if (gameover) {
-					alert("游戏结束");
+					this.ended = true;
 					clearInterval(this.timer);
 				} else {
 					// 游戏没结束
@@ -197,7 +233,7 @@
 					this.paint();
 				}
 			},
-            // 生成下一只虫子
+			// 生成下一只虫子
 			createWorm() {
 				let blocks = Array.from({
 					length: 100
@@ -258,16 +294,13 @@
 
 <style>
 	.content {
-		height: calc(100vh - 90upx);
+		height: calc(100vh - 150upx);
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-between;
-	}
-
-	.play {
-		margin-bottom: 40upx;
+		padding: 30upx 0;
 	}
 
 	.game-field {
@@ -285,7 +318,6 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
-		outline: 2upx solid;
 		box-sizing: border-box;
 	}
 
@@ -300,5 +332,63 @@
 		flex-direction: column;
 		width: 100%;
 		align-items: center;
+	}
+
+	.game-board-wrap {
+		position: fixed;
+		width: 100%;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, .5);
+		top: 0;
+		left: 0;
+		z-index: 999;
+	}
+
+	.game-board {
+		width: 600upx;
+		height: 600upx;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -300upx;
+		margin-left: -300upx;
+		background-color: #fff;
+		border-radius: 30upx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.settle-board {
+		width: 600upx;
+		height: 400upx;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -300upx;
+		margin-left: -300upx;
+		background-color: #fff;
+		border-radius: 30upx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.title {
+		font-size: 50upx;
+		font-weight: bold;
+		margin-top: 40upx;
+	}
+
+	.label {
+		display: block;
+		margin: 30upx;
+	}
+	.result {
+		margin: 40upx 0;
+	}
+	.btns {
+		display: flex;
+		width: 500upx;
 	}
 </style>
