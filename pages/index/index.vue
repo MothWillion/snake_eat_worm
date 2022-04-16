@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
 		<view>蛇蛇目前：{{snakes.length}}米长</view>
+		<view class="boom-countdown" v-show="boom">虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text></view>
 		<view class="game-field">
 			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(
           x,
@@ -51,6 +52,8 @@
 	import snakeBody from "../../static/images/snake_body.png";
 	import snakeHead from "../../static/images/snake_head.png";
 	import snakeTail from "../../static/images/snake_tail.png";
+	import polluteBlock from "../../static/images/pollute.png";
+	import wormBoom from "../../static/images/worm_4.png";
 	export default {
 		data() {
 			return {
@@ -60,6 +63,9 @@
 				direction: "right",
 				timer: null,
 				level: 1, // 游戏难度
+				boom: false, // 是否生成会爆炸的虫子
+				boomCount: 10,
+				pollutes: [],
 				started: false, // 游戏开始了
 				ended: false // 游戏结束了
 			};
@@ -67,13 +73,27 @@
 		onLoad() {
 			this.initGame();
 		},
+		watch: {
+			boomCount(val) {
+				if (val === 0) {
+					// 超过爆炸时间还没吃到,则将虫子格子变成被污染的土地,并且重置爆炸状态,同时生成一只新的虫子:
+					const boomWorm = this.worms.pop();
+					this.pollutes.push(boomWorm);
+					this.blocks[boomWorm] = 3; // 被污染的地方我们用3表示
+					this.boom = false;
+					this.worms.push(this.createWorm());
+				}
+			}
+		},
 		methods: {
 			initGame() {
 				this.blocks = new Array(100).fill(0);
 				this.worms = [Math.floor(Math.random() * 96) + 4];
 				this.snakes = [0, 1, 2, 3];
+				this.pollutes = [];
 				this.direction = "right";
 				this.timer = null;
+				this.boomTimer = null;
 				this.paint();
 			},
 			// 难度选择
@@ -114,7 +134,11 @@
 						bg = "unset";
 						break;
 					case 1: // 虫子
-						bg = `url(${worm})`;
+						if (this.boom) {
+							bg = `url(${wormBoom})`;
+						} else {
+							bg = `url(${worm})`;
+						}
 						break;
 					case 2: // 蛇
 						let head = this.snakes[this.snakes.length - 1];
@@ -126,6 +150,9 @@
 						} else {
 							bg = `url(${snakeBody})`;
 						}
+						break;
+					case 3: // 污染的地块
+						bg = `url(${polluteBlock})`;
 						break;
 				}
 				return bg;
@@ -190,7 +217,6 @@
 			},
 			toWards(direction) {
 				if (this.snakes.length === 100) {
-					alert("你赢了！");
 					clearInterval(this.timer);
 					return;
 				}
@@ -215,6 +241,7 @@
 				if (gameover) {
 					this.ended = true;
 					clearInterval(this.timer);
+					clearInterval(this.boomTimer);
 				} else {
 					// 游戏没结束
 					this.snakes.push(next);
@@ -235,11 +262,26 @@
 			},
 			// 生成下一只虫子
 			createWorm() {
+				this.boom = false;
 				let blocks = Array.from({
 					length: 100
 				}, (v, k) => k);
-				let restBlocks = blocks.filter(x => this.snakes.indexOf(x) < 0);
+				// 在不是蛇和被污染的地方生成虫子
+				let restBlocks = blocks.filter(x => this.snakes.indexOf(x) < 0 && this.pollutes.indexOf(x) < 0);
 				let worm = restBlocks[Math.floor(Math.random() * restBlocks.length)];
+				// 根据游戏难度,概率产出会爆炸的虫子:
+				this.boom = Math.random() / this.level < 0.05;
+				console.log(this.boom);
+				// 生成了新虫子说明吃到了那个爆炸的虫子，重置下爆炸
+				if (this.boom) {
+					this.boomCount = 10;
+					this.boomTimer && clearInterval(this.boomTimer);
+					this.boomTimer = setInterval(() => {
+						this.boomCount--;
+					}, 1000)
+				} else {
+					clearInterval(this.boomTimer);
+				}
 				return worm;
 			},
 			bindUp() {
@@ -261,9 +303,12 @@
 			checkGame(direction, next) {
 				let gameover = false;
 				let isSnake = this.snakes.indexOf(next) > -1;
-				if (isSnake) {
+				let isPollute = this.pollutes.indexOf(next) > -1;
+				// 撞到蛇和被污染的地块游戏结束
+				if (isSnake || isPollute) {
 					gameover = true;
 				}
+				// 撞到边界游戏结束
 				switch (direction) {
 					case "up":
 						if (next < 0) {
@@ -384,11 +429,27 @@
 		display: block;
 		margin: 30upx;
 	}
+
 	.result {
 		margin: 40upx 0;
 	}
+
 	.btns {
 		display: flex;
 		width: 500upx;
+	}
+	.boom-countdown {
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		top: 60upx;
+	}
+	.num {
+		font-size: 60upx;
+		color: #007AFF;
+	}
+	.tip {
+		font-size: 20upx;
+		color: #f8b62a;
 	}
 </style>
