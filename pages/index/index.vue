@@ -1,5 +1,6 @@
 <template>
-	<view class="content">
+	<view ref="body" class="content" @keyup.left="bindLeft" @keyup.right="bindRight" @keyup.down="bindDown"
+		@keyup.up="bindUp">
 		<view>蛇蛇目前：{{snakes.length}}米长</view>
 		<view class="boom-countdown" v-show="boom">
 			虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text>
@@ -11,29 +12,21 @@
         )}deg)`" v-for="(x, i) in blocks" :key="i">
 			</view>
 		</view>
-		<view class="action-field">
-			<button @click="bindUp">上</button>
-			<view class="flex">
-				<button @click="bindLeft">左</button>
-				<button @click="bindRight">右</button>
-			</view>
-			<button @click="bindDown">下</button>
-		</view>
 		<view v-show="!started || ended" class="game-board-wrap">
 			<view v-show="!started" class="game-board">
 				<view class="title">选择游戏难度</view>
 				<radio-group name="radio" @change="bindLevelChange">
 					<label class="label">
-						<radio value="1" checked /><text>简单模式</text>
+						<radio value="1" :checked="level==1" /><text>简单模式</text>
 					</label>
 					<label class="label">
-						<radio value="2" /><text>正常模式</text>
+						<radio value="2" :checked="level==2" /><text>正常模式</text>
 					</label>
 					<label class="label">
-						<radio value="3" /><text>困难模式</text>
+						<radio value="3" :checked="level==3" /><text>困难模式</text>
 					</label>
 					<label class="label">
-						<radio value="4" /><text>地狱模式</text>
+						<radio value="4" :checked="level==4" /><text>地狱模式</text>
 					</label>
 				</radio-group>
 				<button type="primary" @click="start">开始游戏</button>
@@ -74,6 +67,37 @@
 		},
 		onLoad() {
 			this.initGame();
+			// 绑定键盘事件
+			document.onkeydown = (e) => {
+				switch (e.keyCode) { // 获取当前按下键盘键的编码
+					case 8: // 按下退格键
+						this.rePick();
+						break;
+					case 13: // 按下回车键
+						this.reStart();
+						break;
+					case 37: // 按下左箭头键
+						this.bindLeft();
+						break;
+					case 39: // 按下右箭头键
+						this.bindRight();
+						break;
+					case 38: // 按下上箭头键
+						if (!this.started) {
+							this.level--;
+						} else {
+							this.bindUp();
+						}
+						break;
+					case 40: // 按下下箭头键
+						if (!this.started) {
+							this.level++;
+						} else {
+							this.bindDown();
+						}
+						break;
+				}
+			}
 		},
 		watch: {
 			boomCount(val) {
@@ -345,13 +369,13 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: space-between;
 		padding: 30upx 0;
 	}
 
 	.game-field {
 		display: flex;
 		flex-wrap: wrap;
+		margin-top: 100upx;
 	}
 
 	.block {
