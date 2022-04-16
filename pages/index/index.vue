@@ -1,7 +1,8 @@
 <template>
 	<view class="content">
-		<view>蛇蛇目前：{{snakes.length}}米长</view>
-		<view class="boom-countdown" v-show="boom">虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text></view>
+		<view class="boom-countdown" v-show="boom">
+			虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text>
+		</view>
 		<view class="game-field">
 			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(
           x,
@@ -271,7 +272,6 @@
 				let worm = restBlocks[Math.floor(Math.random() * restBlocks.length)];
 				// 根据游戏难度,概率产出会爆炸的虫子:
 				this.boom = Math.random() / this.level < 0.05;
-				console.log(this.boom);
 				// 生成了新虫子说明吃到了那个爆炸的虫子，重置下爆炸
 				if (this.boom) {
 					this.boomCount = 10;
@@ -438,16 +438,19 @@
 		display: flex;
 		width: 500upx;
 	}
+
 	.boom-countdown {
 		position: absolute;
 		width: 100%;
 		text-align: center;
 		top: 60upx;
 	}
+
 	.num {
 		font-size: 60upx;
 		color: #007AFF;
 	}
+
 	.tip {
 		font-size: 20upx;
 		color: #f8b62a;
