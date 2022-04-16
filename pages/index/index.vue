@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		<view>蛇蛇目前：{{snakes.length}}米长</view>
 		<view class="boom-countdown" v-show="boom">
 			虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text>
 		</view>
