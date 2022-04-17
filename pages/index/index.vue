@@ -137,20 +137,23 @@
 				let touchY = lastY - this.lastY
 				if (Math.abs(touchX) > Math.abs(touchY)) {
 					if (touchX < 0) {
+						if(this.direction === "right") return;
 						this.direction = 'left'
 					} else if (touchX > 0) {
+						if(this.direction === "left") return;
 						this.direction = 'right'
 					}
 				} else {
 					if (touchY < 0) {
+						if(this.direction === "down") return;
 						this.direction = 'up'
 					} else if (touchY > 0) {
+						if(this.direction === "up") return;
 						this.direction = 'down'
 					}
 				}
 				this.lastX = lastX;
-				this.lastY = lastY
-
+				this.lastY = lastY;
 			},
 			// 难度选择
 			bindLevelChange(e) {
