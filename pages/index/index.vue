@@ -1,6 +1,6 @@
 <template>
 	<view ref="body" class="content" @keyup.left="bindLeft" @keyup.right="bindRight" @keyup.down="bindDown"
-		@keyup.up="bindUp">
+		@keyup.up="bindUp" @touchstart="handleTouchStart" @touchmove="handleTouchMove">
 		<view>蛇蛇目前：{{snakes.length}}米长</view>
 		<view class="boom-countdown" v-show="boom">
 			虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text>
@@ -62,7 +62,9 @@
 				boomCount: 10,
 				pollutes: [],
 				started: false, // 游戏开始了
-				ended: false // 游戏结束了
+				ended: false, // 游戏结束了
+				lastX: 0,
+				lastY: 0,
 			};
 		},
 		onLoad() {
@@ -121,6 +123,34 @@
 				this.timer = null;
 				this.boomTimer = null;
 				this.paint();
+			},
+			handleTouchStart(e) {
+				// 手指开始位置
+				this.lastX = e.touches[0].pageX;
+				this.lastY = e.touches[0].pageY;
+			},
+			handleTouchMove(e) {
+				let lastX = e.touches[0].pageX; // 移动的x轴坐标
+				let lastY = e.touches[0].pageY; // 移动的y轴坐标
+
+				let touchX = lastX - this.lastX;
+				let touchY = lastY - this.lastY
+				if (Math.abs(touchX) > Math.abs(touchY)) {
+					if (touchX < 0) {
+						this.direction = 'left'
+					} else if (touchX > 0) {
+						this.direction = 'right'
+					}
+				} else {
+					if (touchY < 0) {
+						this.direction = 'up'
+					} else if (touchY > 0) {
+						this.direction = 'down'
+					}
+				}
+				this.lastX = lastX;
+				this.lastY = lastY
+
 			},
 			// 难度选择
 			bindLevelChange(e) {
