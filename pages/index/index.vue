@@ -178,7 +178,7 @@
 				this.started = true;
 				this.initGame();
 				this.handleClickVoice()
-				this.handleBgnVoice(true)
+				this.handleBgmVoice()
 				this.timer = setInterval(() => {
 					this.toWards(this.direction);
 				}, 1000 / this.level);
@@ -297,7 +297,7 @@
 				innerAudioContext.autoplay = true;
 				innerAudioContext.src = explodeVoice;
 			},
-			handleBgnVoice() {
+			handleBgmVoice() {
 				// 背景音乐
 				this.bgmInnerAudioContext = uni.createInnerAudioContext()
 				this.bgmInnerAudioContext.autoplay = true;
