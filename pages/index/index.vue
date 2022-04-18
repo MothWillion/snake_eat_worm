@@ -49,6 +49,12 @@
 	import snakeTail from "../../static/images/snake_tail.png";
 	import polluteBlock from "../../static/images/pollute.png";
 	import wormBoom from "../../static/images/worm_4.png";
+	import explodeVoice from "../../static/audio/explode.mp3";
+	import eatVoice from "../../static/audio/eat.mp3";
+	import bgm from '../../static/audio/bgm.mp3';
+	import click from '../../static/audio/click.mp3';
+	import clock from '../../static/audio/clock.mp3';
+	import die from '../../static/audio/die.mp3';
 	export default {
 		data() {
 			return {
@@ -65,6 +71,8 @@
 				ended: false, // 游戏结束了
 				lastX: 0,
 				lastY: 0,
+				bgmInnerAudioContext:null,
+				clockInnerAudioContext:null,
 			};
 		},
 		onLoad() {
@@ -105,6 +113,8 @@
 			boomCount(val) {
 				if (val === 0) {
 					// 超过爆炸时间还没吃到,则将虫子格子变成被污染的土地,并且重置爆炸状态,同时生成一只新的虫子:
+					this.handleExplodeVoice()
+					this.clockInnerAudioContext.stop()
 					const boomWorm = this.worms.pop();
 					this.pollutes.push(boomWorm);
 					this.blocks[boomWorm] = 3; // 被污染的地方我们用3表示
@@ -158,6 +168,7 @@
 			// 难度选择
 			bindLevelChange(e) {
 				this.level = e.detail.value;
+				this.handleClickVoice();
 			},
 			rePick() {
 				this.started = false;
@@ -166,6 +177,8 @@
 			start() {
 				this.started = true;
 				this.initGame();
+				this.handleClickVoice()
+				this.handleBgnVoice(true)
 				this.timer = setInterval(() => {
 					this.toWards(this.direction);
 				}, 1000 / this.level);
@@ -274,6 +287,41 @@
 				}
 				return rotate;
 			},
+			handleEatVoice() {
+				const innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src = eatVoice;
+			},
+			handleExplodeVoice(){
+				const innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src = explodeVoice;
+			},
+			handleBgnVoice() {
+				// 背景音乐
+				this.bgmInnerAudioContext = uni.createInnerAudioContext()
+				this.bgmInnerAudioContext.autoplay = true;
+				this.bgmInnerAudioContext.src= bgm;
+				this.bgmInnerAudioContext.loop = true;
+			},
+			handleClickVoice() {
+				// 按钮点击的声音
+				const innerAudioContext = uni.createInnerAudioContext()
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src= click;
+			},
+			// 爆炸倒计时的声音
+			handleClockVoice() {
+				this.clockInnerAudioContext = uni.createInnerAudioContext()
+				this.clockInnerAudioContext.autoplay = true;
+				this.clockInnerAudioContext.src= clock;
+			},
+			// 蛇挂掉了
+			handleDieVoice() {
+				const innerAudioContext = uni.createInnerAudioContext()
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src= die;
+			},
 			toWards(direction) {
 				if (this.snakes.length === 100) {
 					clearInterval(this.timer);
@@ -299,6 +347,9 @@
 				let gameover = this.checkGame(direction, next);
 				if (gameover) {
 					this.ended = true;
+					this.handleDieVoice()
+					this.bgmInnerAudioContext.pause()
+					this.clockInnerAudioContext && this.clockInnerAudioContext.stop()
 					clearInterval(this.timer);
 					clearInterval(this.boomTimer);
 				} else {
@@ -311,6 +362,7 @@
 						this.snakes.shift();
 					} else {
 						// 如果是虫子格
+						this.handleEatVoice()
 						this.worms = this.worms.filter((x) => x !== next);
 						let nextWorm = this.createWorm();
 						this.worms.push(nextWorm);
@@ -334,10 +386,12 @@
 				if (this.boom) {
 					this.boomCount = 10;
 					this.boomTimer && clearInterval(this.boomTimer);
+					this.handleClockVoice()
 					this.boomTimer = setInterval(() => {
 						this.boomCount--;
 					}, 1000)
 				} else {
+					this.clockInnerAudioContext && this.clockInnerAudioContext.stop()
 					clearInterval(this.boomTimer);
 				}
 				return worm;
