@@ -6,10 +6,8 @@
 			虫虫还有<text class="num">{{boomCount}}</text>秒爆炸！<text class="tip">（请在爆炸前吃掉它）</text>
 		</view>
 		<view class="game-field">
-			<view class="block" :style="`background-image: ${bg(x, i)};transform: rotate(${calcRotate(
-          x,
-          i
-        )}deg)`" v-for="(x, i) in blocks" :key="i">
+			<view class="block" :style="{'background-image': bg(x, i), transform: `rotate(${calcRotate(x,i)}deg)`}"
+				v-for="(x, i) in blocks" :key="i">
 			</view>
 		</view>
 		<view v-show="!started || ended" class="game-board-wrap">
@@ -71,8 +69,8 @@
 				ended: false, // 游戏结束了
 				lastX: 0,
 				lastY: 0,
-				bgmInnerAudioContext:null,
-				clockInnerAudioContext:null,
+				bgmInnerAudioContext: null,
+				clockInnerAudioContext: null,
 			};
 		},
 		onLoad() {
@@ -147,18 +145,18 @@
 				let touchY = lastY - this.lastY
 				if (Math.abs(touchX) > Math.abs(touchY)) {
 					if (touchX < 0) {
-						if(this.direction === "right") return;
+						if (this.direction === "right") return;
 						this.direction = 'left'
 					} else if (touchX > 0) {
-						if(this.direction === "left") return;
+						if (this.direction === "left") return;
 						this.direction = 'right'
 					}
 				} else {
 					if (touchY < 0) {
-						if(this.direction === "down") return;
+						if (this.direction === "down") return;
 						this.direction = 'up'
 					} else if (touchY > 0) {
-						if(this.direction === "up") return;
+						if (this.direction === "up") return;
 						this.direction = 'down'
 					}
 				}
@@ -292,7 +290,7 @@
 				innerAudioContext.autoplay = true;
 				innerAudioContext.src = eatVoice;
 			},
-			handleExplodeVoice(){
+			handleExplodeVoice() {
 				const innerAudioContext = uni.createInnerAudioContext();
 				innerAudioContext.autoplay = true;
 				innerAudioContext.src = explodeVoice;
@@ -301,26 +299,26 @@
 				// 背景音乐
 				this.bgmInnerAudioContext = uni.createInnerAudioContext()
 				this.bgmInnerAudioContext.autoplay = true;
-				this.bgmInnerAudioContext.src= bgm;
+				this.bgmInnerAudioContext.src = bgm;
 				this.bgmInnerAudioContext.loop = true;
 			},
 			handleClickVoice() {
 				// 按钮点击的声音
 				const innerAudioContext = uni.createInnerAudioContext()
 				innerAudioContext.autoplay = true;
-				innerAudioContext.src= click;
+				innerAudioContext.src = click;
 			},
 			// 爆炸倒计时的声音
 			handleClockVoice() {
 				this.clockInnerAudioContext = uni.createInnerAudioContext()
 				this.clockInnerAudioContext.autoplay = true;
-				this.clockInnerAudioContext.src= clock;
+				this.clockInnerAudioContext.src = clock;
 			},
 			// 蛇挂掉了
 			handleDieVoice() {
 				const innerAudioContext = uni.createInnerAudioContext()
 				innerAudioContext.autoplay = true;
-				innerAudioContext.src= die;
+				innerAudioContext.src = die;
 			},
 			toWards(direction) {
 				if (this.snakes.length === 100) {
