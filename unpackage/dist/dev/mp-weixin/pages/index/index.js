@@ -1,17 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/index/index"],[
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/index/index"],{
+
+/***/ 12:
 /*!*******************************************************************************************************!*\
   !*** /Users/zhangshuaining/Documents/code/开源/snake_eat_worm/main.js?{"page":"pages%2Findex%2Findex"} ***!
   \*******************************************************************************************************/
@@ -26,7 +15,8 @@ createPage(_index.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
-/* 13 */
+
+/***/ 13:
 /*!************************************************************************************!*\
   !*** /Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue ***!
   \************************************************************************************/
@@ -38,7 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_vue_vue_type_template_id_57280228___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=57280228& */ 14);
 /* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ 16);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue?vue&type=style&index=0&lang=css& */ 24);
+/* harmony import */ var _index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue?vue&type=style&index=0&lang=css& */ 30);
 /* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 11);
 
 var renderjs
@@ -66,7 +56,8 @@ component.options.__file = "pages/index/index.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
-/* 14 */
+
+/***/ 14:
 /*!*******************************************************************************************************************!*\
   !*** /Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue?vue&type=template&id=57280228& ***!
   \*******************************************************************************************************************/
@@ -87,7 +78,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /***/ }),
-/* 15 */
+
+/***/ 15:
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue?vue&type=template&id=57280228& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -100,15 +92,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var render = function () {}
-var staticRenderFns = []
-var recyclableRender
 var components
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.blocks, function(x, i) {
+    var $orig = _vm.__get_orig(x)
+
+    var m0 = _vm.bg(x, i)
+    var m1 = _vm.calcRotate(x, i)
+    return {
+      $orig: $orig,
+      m0: m0,
+      m1: m1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
+}
+var recyclableRender = false
+var staticRenderFns = []
+render._withStripped = true
 
 
 
 /***/ }),
-/* 16 */
+
+/***/ 16:
 /*!*************************************************************************************************************!*\
   !*** /Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************/
@@ -123,7 +141,8 @@ __webpack_require__.r(__webpack_exports__);
  /* harmony default export */ __webpack_exports__["default"] = (_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
-/* 17 */
+
+/***/ 17:
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -131,9 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -181,9 +198,13 @@ var _snake_body = _interopRequireDefault(__webpack_require__(/*! ../../static/im
 var _snake_head = _interopRequireDefault(__webpack_require__(/*! ../../static/images/snake_head.png */ 20));
 var _snake_tail = _interopRequireDefault(__webpack_require__(/*! ../../static/images/snake_tail.png */ 21));
 var _pollute = _interopRequireDefault(__webpack_require__(/*! ../../static/images/pollute.png */ 22));
-var _worm_ = _interopRequireDefault(__webpack_require__(/*! ../../static/images/worm_4.png */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
+var _worm_ = _interopRequireDefault(__webpack_require__(/*! ../../static/images/worm_4.png */ 23));
+var _explode = _interopRequireDefault(__webpack_require__(/*! ../../static/audio/explode.mp3 */ 24));
+var _eat = _interopRequireDefault(__webpack_require__(/*! ../../static/audio/eat.mp3 */ 25));
+var _bgm = _interopRequireDefault(__webpack_require__(/*! ../../static/audio/bgm.mp3 */ 26));
+var _click = _interopRequireDefault(__webpack_require__(/*! ../../static/audio/click.mp3 */ 27));
+var _clock = _interopRequireDefault(__webpack_require__(/*! ../../static/audio/clock.mp3 */ 28));
+var _die = _interopRequireDefault(__webpack_require__(/*! ../../static/audio/die.mp3 */ 29));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -229,7 +250,7 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
       boom: false, // 是否生成会爆炸的虫子
       boomCount: 10, pollutes: [], started: false, // 游戏开始了
       ended: false, // 游戏结束了
-      lastX: 0, lastY: 0 };}, onLoad: function onLoad() {var _this = this;this.initGame(); // 绑定键盘事件
+      lastX: 0, lastY: 0, bgmInnerAudioContext: null, clockInnerAudioContext: null };}, onLoad: function onLoad() {var _this = this;this.initGame(); // 绑定键盘事件
     document.onkeydown = function (e) {switch (e.keyCode) {// 获取当前按下键盘键的编码
         case 8: // 按下退格键
           _this.rePick();break;case 13: // 按下回车键
@@ -237,7 +258,13 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
           _this.bindLeft();break;case 39: // 按下右箭头键
           _this.bindRight();break;case 38: // 按下上箭头键
           if (!_this.started) {_this.level--;} else {_this.bindUp();}break;case 40: // 按下下箭头键
-          if (!_this.started) {_this.level++;} else {_this.bindDown();}break;}};}, watch: { boomCount: function boomCount(val) {if (val === 0) {// 超过爆炸时间还没吃到,则将虫子格子变成被污染的土地,并且重置爆炸状态,同时生成一只新的虫子:
+          if (!_this.started) {_this.level++;} else {_this.bindDown();}break;}};},
+  watch: {
+    boomCount: function boomCount(val) {
+      if (val === 0) {
+        // 超过爆炸时间还没吃到,则将虫子格子变成被污染的土地,并且重置爆炸状态,同时生成一只新的虫子:
+        this.handleExplodeVoice();
+        this.clockInnerAudioContext.stop();
         var boomWorm = this.worms.pop();
         this.pollutes.push(boomWorm);
         this.blocks[boomWorm] = 3; // 被污染的地方我们用3表示
@@ -270,24 +297,28 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
       var touchY = lastY - this.lastY;
       if (Math.abs(touchX) > Math.abs(touchY)) {
         if (touchX < 0) {
+          if (this.direction === "right") return;
           this.direction = 'left';
         } else if (touchX > 0) {
+          if (this.direction === "left") return;
           this.direction = 'right';
         }
       } else {
         if (touchY < 0) {
+          if (this.direction === "down") return;
           this.direction = 'up';
         } else if (touchY > 0) {
+          if (this.direction === "up") return;
           this.direction = 'down';
         }
       }
       this.lastX = lastX;
       this.lastY = lastY;
-
     },
     // 难度选择
     bindLevelChange: function bindLevelChange(e) {
       this.level = e.detail.value;
+      this.handleClickVoice();
     },
     rePick: function rePick() {
       this.started = false;
@@ -296,6 +327,8 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
     start: function start() {var _this2 = this;
       this.started = true;
       this.initGame();
+      this.handleClickVoice();
+      this.handleBgmVoice();
       this.timer = setInterval(function () {
         _this2.toWards(_this2.direction);
       }, 1000 / this.level);
@@ -404,6 +437,41 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
 
       return rotate;
     },
+    handleEatVoice: function handleEatVoice() {
+      var innerAudioContext = uni.createInnerAudioContext();
+      innerAudioContext.autoplay = true;
+      innerAudioContext.src = _eat.default;
+    },
+    handleExplodeVoice: function handleExplodeVoice() {
+      var innerAudioContext = uni.createInnerAudioContext();
+      innerAudioContext.autoplay = true;
+      innerAudioContext.src = _explode.default;
+    },
+    handleBgmVoice: function handleBgmVoice() {
+      // 背景音乐
+      this.bgmInnerAudioContext = uni.createInnerAudioContext();
+      this.bgmInnerAudioContext.autoplay = true;
+      this.bgmInnerAudioContext.src = _bgm.default;
+      this.bgmInnerAudioContext.loop = true;
+    },
+    handleClickVoice: function handleClickVoice() {
+      // 按钮点击的声音
+      var innerAudioContext = uni.createInnerAudioContext();
+      innerAudioContext.autoplay = true;
+      innerAudioContext.src = _click.default;
+    },
+    // 爆炸倒计时的声音
+    handleClockVoice: function handleClockVoice() {
+      this.clockInnerAudioContext = uni.createInnerAudioContext();
+      this.clockInnerAudioContext.autoplay = true;
+      this.clockInnerAudioContext.src = _clock.default;
+    },
+    // 蛇挂掉了
+    handleDieVoice: function handleDieVoice() {
+      var innerAudioContext = uni.createInnerAudioContext();
+      innerAudioContext.autoplay = true;
+      innerAudioContext.src = _die.default;
+    },
     toWards: function toWards(direction) {
       if (this.snakes.length === 100) {
         clearInterval(this.timer);
@@ -429,6 +497,9 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
       var gameover = this.checkGame(direction, next);
       if (gameover) {
         this.ended = true;
+        this.handleDieVoice();
+        this.bgmInnerAudioContext.pause();
+        this.clockInnerAudioContext && this.clockInnerAudioContext.stop();
         clearInterval(this.timer);
         clearInterval(this.boomTimer);
       } else {
@@ -441,6 +512,7 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
           this.snakes.shift();
         } else {
           // 如果是虫子格
+          this.handleEatVoice();
           this.worms = this.worms.filter(function (x) {return x !== next;});
           var nextWorm = this.createWorm();
           this.worms.push(nextWorm);
@@ -464,10 +536,12 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
       if (this.boom) {
         this.boomCount = 10;
         this.boomTimer && clearInterval(this.boomTimer);
+        this.handleClockVoice();
         this.boomTimer = setInterval(function () {
           _this4.boomCount--;
         }, 1000);
       } else {
+        this.clockInnerAudioContext && this.clockInnerAudioContext.stop();
         clearInterval(this.boomTimer);
       }
       return worm;
@@ -521,15 +595,11 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
 
       return gameover;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */
+
+/***/ 30:
 /*!*********************************************************************************************************************!*\
   !*** /Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue?vue&type=style&index=0&lang=css& ***!
   \*********************************************************************************************************************/
@@ -538,13 +608,14 @@ var _default = { data: function data() {return { blocks: [], worms: [], snakes: 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--6-oneOf-1-3!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./index.vue?vue&type=style&index=0&lang=css& */ 25);
+/* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--6-oneOf-1-3!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./index.vue?vue&type=style&index=0&lang=css& */ 31);
 /* harmony import */ var _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_Applications_HBuilderX_app_Contents_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
-/* 25 */
+
+/***/ 31:
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!/Users/zhangshuaining/Documents/code/开源/snake_eat_worm/pages/index/index.vue?vue&type=style&index=0&lang=css& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -556,5 +627,6 @@ __webpack_require__.r(__webpack_exports__);
   
 
 /***/ })
-],[[12,"common/runtime","common/vendor"]]]);
+
+},[[12,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/index/index.js.map
