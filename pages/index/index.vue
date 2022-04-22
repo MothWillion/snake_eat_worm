@@ -71,6 +71,7 @@
 				lastY: 0,
 				bgmInnerAudioContext: null,
 				clockInnerAudioContext: null,
+				counldChangeDirection: false
 			};
 		},
 		onLoad() {
@@ -146,18 +147,30 @@
 				if (Math.abs(touchX) > Math.abs(touchY)) {
 					if (touchX < 0) {
 						if (this.direction === "right") return;
-						this.direction = 'left'
+						if (this.counldChangeDirection) {
+							this.direction = 'left';
+							this.counldChangeDirection = false;
+						}
 					} else if (touchX > 0) {
 						if (this.direction === "left") return;
-						this.direction = 'right'
+						if (this.counldChangeDirection) {
+							this.direction = 'right';
+							this.counldChangeDirection = false;
+						}
 					}
 				} else {
 					if (touchY < 0) {
 						if (this.direction === "down") return;
-						this.direction = 'up'
+						if (this.counldChangeDirection) {
+							this.direction = 'up';
+							this.counldChangeDirection = false;
+						}
 					} else if (touchY > 0) {
 						if (this.direction === "up") return;
-						this.direction = 'down'
+						if (this.counldChangeDirection) {
+							this.direction = 'down';
+							this.counldChangeDirection = false;
+						}
 					}
 				}
 				this.lastX = lastX;
@@ -321,6 +334,7 @@
 				innerAudioContext.src = die;
 			},
 			toWards(direction) {
+				this.counldChangeDirection = true;
 				if (this.snakes.length === 100) {
 					clearInterval(this.timer);
 					return;
@@ -396,19 +410,31 @@
 			},
 			bindUp() {
 				if (this.direction === "down") return;
-				this.direction = "up";
+				if (this.counldChangeDirection) {
+					this.direction = "up";
+					this.counldChangeDirection = false;
+				}
 			},
 			bindDown() {
 				if (this.direction === "up") return;
-				this.direction = "down";
+				if (this.counldChangeDirection) {
+					this.direction = "down";
+					this.counldChangeDirection = false;
+				}
 			},
 			bindLeft() {
 				if (this.direction === "right") return;
-				this.direction = "left";
+				if (this.counldChangeDirection) {
+					this.direction = "left";
+					this.counldChangeDirection = false;
+				}
 			},
 			bindRight() {
 				if (this.direction === "left") return;
-				this.direction = "right";
+				if (this.counldChangeDirection) {
+					this.direction = "right";
+					this.counldChangeDirection = false;
+				}
 			},
 			checkGame(direction, next) {
 				let gameover = false;
