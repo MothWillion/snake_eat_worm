@@ -77,34 +77,36 @@
 		onLoad() {
 			this.initGame();
 			// 绑定键盘事件
-			document.onkeydown = (e) => {
-				switch (e.keyCode) { // 获取当前按下键盘键的编码
-					case 8: // 按下退格键
-						this.rePick();
-						break;
-					case 13: // 按下回车键
-						this.reStart();
-						break;
-					case 37: // 按下左箭头键
-						this.bindLeft();
-						break;
-					case 39: // 按下右箭头键
-						this.bindRight();
-						break;
-					case 38: // 按下上箭头键
-						if (!this.started) {
-							this.level--;
-						} else {
-							this.bindUp();
-						}
-						break;
-					case 40: // 按下下箭头键
-						if (!this.started) {
-							this.level++;
-						} else {
-							this.bindDown();
-						}
-						break;
+			if(document) {
+				document.onkeydown = (e) => {
+					switch (e.keyCode) { // 获取当前按下键盘键的编码
+						case 8: // 按下退格键
+							this.rePick();
+							break;
+						case 13: // 按下回车键
+							this.reStart();
+							break;
+						case 37: // 按下左箭头键
+							this.bindLeft();
+							break;
+						case 39: // 按下右箭头键
+							this.bindRight();
+							break;
+						case 38: // 按下上箭头键
+							if (!this.started) {
+								this.level--;
+							} else {
+								this.bindUp();
+							}
+							break;
+						case 40: // 按下下箭头键
+							if (!this.started) {
+								this.level++;
+							} else {
+								this.bindDown();
+							}
+							break;
+					}
 				}
 			}
 		},
