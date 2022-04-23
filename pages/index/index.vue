@@ -396,7 +396,7 @@
 				let restBlocks = blocks.filter(x => this.snakes.indexOf(x) < 0 && this.pollutes.indexOf(x) < 0);
 				let worm = restBlocks[Math.floor(Math.random() * restBlocks.length)];
 				// 根据游戏难度,概率产出会爆炸的虫子:
-				this.boom = Math.random() / this.level < 0.05;
+				this.boom = Math.random() / (this.level * this.level) < 0.06;
 				// 生成了新虫子说明吃到了那个爆炸的虫子，重置下爆炸
 				if (this.boom) {
 					this.boomCount = 10;
