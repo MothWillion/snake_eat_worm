@@ -386,6 +386,7 @@
 			// 生成下一只虫子
 			createWorm() {
 				this.boom = false;
+				this.clockInnerAudioContext && this.clockInnerAudioContext.stop();
 				let blocks = Array.from({
 					length: 100
 				}, (v, k) => k);
@@ -403,7 +404,6 @@
 						this.boomCount--;
 					}, 1000)
 				} else {
-					this.clockInnerAudioContext && this.clockInnerAudioContext.stop()
 					clearInterval(this.boomTimer);
 				}
 				return worm;
